@@ -1,4 +1,5 @@
 import tkinter as tk
+import itertools
 
 from solver import Solver
 
@@ -41,18 +42,19 @@ class Ui(tk.Frame):
     def __draw_grid(self):
         for i in range(10):
             color = "blue" if i % 3 == 0 else "gray"
+            width = 2 if i % 3 == 0 else 1
 
             x0 = MARGIN + i * SIDE
             y0 = MARGIN
             x1 = MARGIN + i * SIDE
             y1 = HEIGHT - MARGIN
-            self.canvas.create_line(x0, y0, x1, y1, fill=color)
+            self.canvas.create_line(x0, y0, x1, y1, fill=color, width=width)
 
             x0 = MARGIN
             y0 = MARGIN + i * SIDE
             x1 = WIDTH - MARGIN
             y1 = MARGIN + i * SIDE
-            self.canvas.create_line(x0, y0, x1, y1, fill=color)
+            self.canvas.create_line(x0, y0, x1, y1, fill=color, width=width)
 
     def __draw_cursor(self):
         self.canvas.delete("cursor")
@@ -94,13 +96,12 @@ class Ui(tk.Frame):
 
     def __draw_puzzle(self):
         self.canvas.delete("numbers")
-        for i in range(9):
-            for j in range(9):
-                number = self.game.puzzle[i][j]
-                if len(number) == 1:
-                    x = MARGIN + j * SIDE + SIDE // 2
-                    y = MARGIN + i * SIDE + SIDE // 2
-                    self.canvas.create_text(x, y, text=number, tags="numbers", fill="black")
+        for i, j in itertools.product(range(9), repeat=2):
+            number = self.game.puzzle[i][j]
+            if len(number) == 1:
+                x = MARGIN + j * SIDE + SIDE // 2
+                y = MARGIN + i * SIDE + SIDE // 2
+                self.canvas.create_text(x, y, text=number, tags="numbers", fill="black")
 
 if __name__ == '__main__':
 
@@ -109,7 +110,6 @@ if __name__ == '__main__':
     window.resizable(width=False, height=False)
 
     solver = Solver()
-    solver.start()
 
     ui = Ui(window, solver)
 

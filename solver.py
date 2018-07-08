@@ -3,6 +3,9 @@ import itertools
 
 class Solver:
 
+    def __init__(self):
+        self.start()
+
     def start(self):
         self.puzzle = []
         for i in range(9):
