@@ -2,6 +2,7 @@ import tkinter as tk
 import itertools
 
 from solver import Solver
+from status import Status
 
 # WINDOW PARAMETER
 
@@ -27,6 +28,11 @@ class Ui(tk.Frame):
 
         self.canvas = tk.Canvas(self, width=WIDTH, height=HEIGHT)
         self.canvas.pack(fill="both", side="top")
+
+        self.message = tk.StringVar()
+        self.message.set("I solve Sudoku puzzles")
+        self.messageLabel = tk.Label(self, textvariable=self.message, justify="center")
+        self.messageLabel.pack()
 
         solveButton = tk.Button(self, text="Solve", command=self.__solve)
         solveButton.pack(fill="x", padx="10", pady="5")
@@ -91,8 +97,15 @@ class Ui(tk.Frame):
         self.__draw_puzzle()
 
     def __solve(self):
-        self.game.solve()
-        self.__draw_puzzle()
+        status = self.game.solve()
+        if status == Status.UNIQUE:
+            self.__draw_puzzle()
+            self.message.set("This puzzle is solved.")
+        elif status == Status.IMPOSSIBLE:
+            self.message.set("This puzzle cannot be solved.")
+        elif status == Status.MISSING:
+            self.__draw_puzzle()
+            self.message.set("This puzzle has multiple solutions.")
 
     def __draw_puzzle(self):
         self.canvas.delete("numbers")

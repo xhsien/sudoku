@@ -1,6 +1,8 @@
 import tkinter as tk
 import itertools
 
+from status import Status
+
 class Solver:
 
     def __init__(self):
@@ -13,6 +15,33 @@ class Solver:
             for j in range(9):
                 self.puzzle[i].append([1, 2, 3, 4, 5, 6, 7, 8, 9])
 
+    def status(self):
+        print(self.puzzle)
+        for i in range(9):
+            for j in range(9):
+                if len(self.puzzle[i][j]) == 0:
+                    return Status.IMPOSSIBLE
+        for i in range(9):
+            if len(set([x for j in range(9) for x in self.puzzle[i][j]])) < 9:
+                return Status.IMPOSSIBLE
+            if len(set([x for j in range(9) for x in self.puzzle[j][i]])) < 9:
+                return Status.IMPOSSIBLE
+        for i, j in itertools.product(range(3), repeat=2):
+            square = set()
+            for kp in range(i * 3, i * 3 + 3):
+                for kq in range(j * 3, j * 3 + 3):
+                    for num in self.puzzle[kp][kq]:
+                        square.add(num)
+            if len(square) < 9:
+                return Status.IMPOSSIBLE
+
+        for i in range(9):
+            for j in range(9):
+                if len(self.puzzle[i][j]) > 1:
+                    return Status.MISSING
+        return Status.UNIQUE
+
+
     def solve(self):
         progress = True
         while progress:
@@ -22,6 +51,7 @@ class Solver:
             progress = progress or self.subgroupElimination()
             progress = progress or self.hiddenTwinExclusion()
             progress = progress or self.nakedTwinExclusion()
+        return self.status()
 
     def redundantChoiceRemoval(self):
         worked = False
