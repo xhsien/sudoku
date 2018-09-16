@@ -1,5 +1,6 @@
-import tkinter as tk
+import time
 import itertools
+import tkinter as tk
 
 from solver import Solver
 from status import Status
@@ -97,10 +98,13 @@ class Ui(tk.Frame):
         self.__draw_puzzle()
 
     def __solve(self):
+        start = time.time()
         status = self.game.solve()
+        end = time.time()
+        duration = end - start
         if status == Status.UNIQUE:
             self.__draw_puzzle()
-            self.message.set("This puzzle is solved.")
+            self.message.set("This puzzle is solved in %d miliseconds!" % (duration * 1000))
         elif status == Status.IMPOSSIBLE:
             self.message.set("This puzzle cannot be solved.")
         elif status == Status.MISSING:

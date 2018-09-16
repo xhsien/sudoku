@@ -46,11 +46,25 @@ class Solver:
         progress = True
         while progress:
             progress = False
-            progress = progress or self.redundantChoiceRemoval()
-            progress = progress or self.onlyChoiceRule()
-            progress = progress or self.subgroupElimination()
-            progress = progress or self.hiddenTwinExclusion()
-            progress = progress or self.nakedTwinExclusion()
+            x = self.redundantChoiceRemoval()
+            print(1, x)
+            progress = progress or x
+            
+            x = self.onlyChoiceRule()
+            print(2, x)
+            progress = progress or x
+
+            x = self.subgroupElimination()
+            print(3, x)
+            progress = progress or x
+
+            x = self.hiddenTwinExclusion()
+            print(4, x)
+            progress = progress or x
+
+            x = self.nakedTwinExclusion()
+            print(5, x)
+            progress = progress or x
         return self.status()
 
     def redundantChoiceRemoval(self):
@@ -66,7 +80,7 @@ class Solver:
                         self.puzzle[i][k].remove(c)
                         if len(self.puzzle[i][k]) == 1:
                             self.puzzle[i][k] = [self.puzzle[i][k][0]]
-                            worked = True
+                        worked = True
                 # col
                 for k in range(9):
                     if k == i:
@@ -75,7 +89,7 @@ class Solver:
                         self.puzzle[k][j].remove(c)
                         if len(self.puzzle[k][j]) == 1:
                             self.puzzle[k][j] = [self.puzzle[k][j][0]]
-                            worked = True
+                        worked = True
 
                 # box
                 p = (i // 3) * 3
@@ -88,7 +102,7 @@ class Solver:
                             self.puzzle[kp][kq].remove(c)
                             if len(self.puzzle[kp][kq]) == 1:
                                 self.puzzle[kp][kq] = [self.puzzle[kp][kq][0]]
-                                worked = True
+                            worked = True
         return worked
 
     def onlyChoiceRule(self):
