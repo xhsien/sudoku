@@ -40,3 +40,6 @@ std::vector<std::vector<uint8_t>> const& Board::Cols() { return cols_; }
 
 std::vector<std::vector<uint8_t>> const& Board::Subgrids() { return subgrids_; }
 
+bool operator==(Board const& lhs, Board const& rhs) {
+  return lhs.rows_ == rhs.rows_;
+}

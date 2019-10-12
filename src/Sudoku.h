@@ -32,6 +32,10 @@ class Sudoku {
 
   // Prints the board.
   void Print();
+
+  friend bool operator==(Sudoku const& lhs, Sudoku const& rhs);
+
+  friend bool operator!=(Sudoku const& lhs, Sudoku const& rhs);
  private:
   bool check(const std::vector<std::vector<uint8_t>>& component);
 

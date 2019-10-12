@@ -22,6 +22,7 @@ class Board {
   std::vector<std::vector<uint8_t>> const& Cols();
   std::vector<std::vector<uint8_t>> const& Subgrids();
 
+  friend bool operator==(Board const& lhs, Board const& rhs);
  private:
   std::vector<std::vector<uint8_t>> rows_;
   std::vector<std::vector<uint8_t>> cols_;

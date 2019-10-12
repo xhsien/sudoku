@@ -89,3 +89,11 @@ bool Sudoku::check(const std::vector<std::vector<uint8_t>>& component) {
 
   return true;
 }
+
+bool operator==(Sudoku const& lhs, Sudoku const& rhs) {
+  return lhs.board_ == rhs.board_;
+}
+
+bool operator!=(Sudoku const& lhs, Sudoku const& rhs) {
+  return !(lhs == rhs);
+}
