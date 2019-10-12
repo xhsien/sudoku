@@ -11,4 +11,8 @@ add_executable(sudoku main.cc
                       Sudoku.cc
                       Board.cc)
 
-add_test(sudokuTest sudoku)
+add_executable(sudokuTest test.cc
+                          Sudoku.cc
+                          Board.cc)
+
+add_test(test sudokuTest)
