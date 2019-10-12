@@ -78,12 +78,13 @@ bool Sudoku::solve(std::stack<std::pair<uint8_t,uint8_t>>& emptyCells) {
       continue;
     }
 
-    if (Solve()) {
+    if (solve(emptyCells)) {
       return true;
     }
   }
 
   board_.Update(i, j, 0);
+  emptyCells.push({i, j});
   return false;
 }
 
