@@ -5,6 +5,9 @@
 
 Sudoku::Sudoku() {}
 
+Sudoku::Sudoku(std::vector<std::vector<uint8_t>> const& rows)
+    : board_(rows) {}
+
 Sudoku::~Sudoku() {}
 
 void Sudoku::Clear() {

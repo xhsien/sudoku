@@ -10,6 +10,8 @@ class Sudoku {
  public:
   Sudoku();
 
+  Sudoku(std::vector<std::vector<uint8_t>> const& rows);
+
   ~Sudoku();
 
   // Clears the entire board.

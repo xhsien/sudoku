@@ -8,6 +8,8 @@ class Board {
  public:
   Board();
 
+  Board(std::vector<std::vector<uint8_t>> const& rows);
+
   ~Board();
 
   void Clear();

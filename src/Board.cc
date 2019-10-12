@@ -5,6 +5,16 @@ Board::Board()
       cols_(9, std::vector<uint8_t>(9, 0)),
       subgrids_(9, std::vector<uint8_t>(9, 0)) {}
 
+Board::Board(std::vector<std::vector<uint8_t>> const& rows)
+    : rows_(9, std::vector<uint8_t>(9, 0)),
+      cols_(9, std::vector<uint8_t>(9, 0)),
+      subgrids_(9, std::vector<uint8_t>(9, 0)) {
+  for (int i = 0; i < 9; ++i) {
+    for (int j = 0; j < 9; j++) {
+      Update(i, j, rows[i][j]);
+    }
+  }
+}
 
 Board::~Board() {}
 
