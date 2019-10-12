@@ -4,6 +4,7 @@
 #include "Board.h"
 
 #include <cstdint>
+#include <stack>
 #include <vector>
 
 class Sudoku {
@@ -22,6 +23,11 @@ class Sudoku {
   // @return true if there is no violations.
   bool Check();
 
+  // Checks the position (i,j) for any violations.
+  //
+  // @return true if there is no violations.
+  bool Check(uint8_t i, uint8_t j);
+
   // Updates the value of a cell. If val is 0, then the cell (i,j) becomes empty.
   void Update(uint8_t i, uint8_t j, uint8_t val);
 
@@ -37,7 +43,11 @@ class Sudoku {
 
   friend bool operator!=(Sudoku const& lhs, Sudoku const& rhs);
  private:
-  bool check(const std::vector<std::vector<uint8_t>>& component);
+  bool check(std::vector<std::vector<uint8_t>> const& component);
+
+  bool check(std::vector<uint8_t> const& component);
+
+  bool solve(std::stack<std::pair<uint8_t,uint8_t>> emptyCells);
 
   Board board_;
 };

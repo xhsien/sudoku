@@ -20,32 +20,27 @@ bool Sudoku::Check() {
          check(board_.Subgrids());
 }
 
+bool Sudoku::Check(uint8_t i, uint8_t j) {
+  return check(board_.Rows()[i]) && \
+         check(board_.Cols()[j]) && \
+         check(board_.Subgrids()[i / 3 * 3 + j / 3]);
+}
+
 void Sudoku::Update(uint8_t i, uint8_t j, uint8_t val) {
   board_.Update(i, j, val);
 }
 
 bool Sudoku::Solve() {
+  std::stack<std::pair<uint8_t,uint8_t>> emptyCells;
   for (uint8_t i = 0; i < 9; ++i) {
     for (uint8_t j = 0; j < 9; ++j) {
-      if (board.Get(i, j) == 0) {
-        for (uint8_t k = 1; k <= 9; ++k) {
-          board.Update(i, j, k);
-          if (!Check()) {
-            continue;
-          }
-
-          if (Solve()) {
-            return true;
-          }
-        }
-
-        board.Update(i, j, 0);
-        return false;
+      if (board_.Get(i, j) == 0) {
+        emptyCells.push({i, j});
       }
     }
   }
 
-  return true;
+  return solve(emptyCells);
 }
 
 void Sudoku::Print() {
@@ -71,20 +66,49 @@ void Sudoku::Print() {
   std::cout << "=============" << std::endl;
 }
 
-bool Sudoku::check(const std::vector<std::vector<uint8_t>>& component) {
-  for (auto& row : component) {
-    std::bitset<10> s;
-    for (uint8_t x : row) {
-      if (x == 0) {
-        continue;
-      }
+bool Sudoku::solve(std::stack<std::pair<uint8_t,uint8_t>> emptyCells) {
+  if (emptyCells.empty()) {
+    return true;
+  }
 
-      if (s.test(x)) {
-        return false;
-      }
-
-      s.set(x);
+  auto [i, j] = emptyCells.top(); emptyCells.pop();
+  for (uint8_t k = 1; k <= 9; ++k) {
+    board_.Update(i, j, k);
+    if (!Check(i, j)) {
+      continue;
     }
+
+    if (Solve()) {
+      return true;
+    }
+  }
+
+  board_.Update(i, j, 0);
+  return false;
+}
+
+bool Sudoku::check(std::vector<std::vector<uint8_t>> const& components) {
+  for (auto& component : components) {
+    if (!check(component)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+bool Sudoku::check(std::vector<uint8_t> const& component) {
+  std::bitset<10> s;
+  for (uint8_t x : component) {
+    if (x == 0) {
+      continue;
+    }
+
+    if (s.test(x)) {
+      return false;
+    }
+
+    s.set(x);
   }
 
   return true;
