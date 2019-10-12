@@ -47,7 +47,7 @@ class Sudoku {
 
   bool check(std::vector<uint8_t> const& component);
 
-  bool solve(std::stack<std::pair<uint8_t,uint8_t>> emptyCells);
+  bool solve(std::stack<std::pair<uint8_t,uint8_t>>& emptyCells);
 
   Board board_;
 };

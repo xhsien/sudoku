@@ -66,7 +66,7 @@ void Sudoku::Print() {
   std::cout << "=============" << std::endl;
 }
 
-bool Sudoku::solve(std::stack<std::pair<uint8_t,uint8_t>> emptyCells) {
+bool Sudoku::solve(std::stack<std::pair<uint8_t,uint8_t>>& emptyCells) {
   if (emptyCells.empty()) {
     return true;
   }
