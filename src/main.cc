@@ -3,11 +3,14 @@
 #include <iostream>
 #include <functional>
 
-void PromptAndGet(std::string prompt, bool (*isValid)(int x), int& value) {
+template <typename T, class Checker>
+T PromptAndGet(std::string const& prompt, Checker isValid) {
+  T value;
   do {
     std::cout << prompt;
     std::cin >> value;
   } while (!isValid(value));
+  return value;
 }
 
 int main(int argc, char** argv) {
@@ -27,30 +30,29 @@ int main(int argc, char** argv) {
     int option;
     std::cin >> option;
     switch (option) {
-      case 1:
-        int row;
-        PromptAndGet("Pick row: ", [](int row) { return 1 <= row && row <= 9; }, row);
-
-        int col;
-        PromptAndGet("Pick col: ", [](int col) { return 1 <= col && col <= 9; }, col);
-
-        int val;
-        PromptAndGet("Update value to: ", [](int val) { return 1 <= val && val <= 9; }, val);
-
+      case 1: {
+        int row = PromptAndGet<int>("Pick row: ", [](int row) { return 1 <= row && row <= 9; });
+        int col = PromptAndGet<int>("Pick col: ", [](int col) { return 1 <= col && col <= 9; });
+        int val = PromptAndGet<int>("Update value to: ", [](int val) { return 0 <= val && val <= 9; });
         sudoku.Update(row - 1, col - 1, val);
         break;
-      case 2:
+      }
+      case 2: {
         if (!sudoku.Solve()) {
           std::cout << "The board is unsolvable!" << std::endl;
         }
         break;
-      case 3:
+      }
+      case 3: {
         sudoku.Clear();
         break;
-      case 4:
+      }
+      case 4: {
         return 0;
-      default:
+      }
+      default: {
         std::cout << "Unknown action!" << std::endl;
+      }
     }
   }
 
