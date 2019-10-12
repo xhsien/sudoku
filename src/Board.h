@@ -21,9 +21,9 @@ class Board {
   std::vector<std::vector<uint8_t>> const& Subgrids();
 
  private:
-  std::vector<std::vector<uint8_t>> rows;
-  std::vector<std::vector<uint8_t>> cols;
-  std::vector<std::vector<uint8_t>> subgrids;
+  std::vector<std::vector<uint8_t>> rows_;
+  std::vector<std::vector<uint8_t>> cols_;
+  std::vector<std::vector<uint8_t>> subgrids_;
 };
 
 

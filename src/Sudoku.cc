@@ -8,17 +8,17 @@ Sudoku::Sudoku() {}
 Sudoku::~Sudoku() {}
 
 void Sudoku::Clear() {
-  board.Clear();
+  board_.Clear();
 }
 
 bool Sudoku::Check() {
-  return check(board.Rows()) && \
-         check(board.Cols()) && \
-         check(board.Subgrids());
+  return check(board_.Rows()) && \
+         check(board_.Cols()) && \
+         check(board_.Subgrids());
 }
 
 void Sudoku::Update(uint8_t i, uint8_t j, uint8_t val) {
-  board.Update(i, j, val);
+  board_.Update(i, j, val);
 }
 
 bool Sudoku::Solve() {
@@ -57,10 +57,10 @@ void Sudoku::Print() {
         std::cout << '|';
       }
 
-      if (board.Get(i, j) == 0) {
+      if (board_.Get(i, j) == 0) {
         std::cout << " ";
       } else {
-        std::cout << unsigned(board.Get(i, j));
+        std::cout << unsigned(board_.Get(i, j));
       }
     }
     std::cout << "|" << char('1' + i) << std::endl;

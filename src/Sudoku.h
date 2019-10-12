@@ -33,7 +33,7 @@ class Sudoku {
  private:
   bool check(const std::vector<std::vector<uint8_t>>& component);
 
-  Board board;
+  Board board_;
 };
 
 
