@@ -13,13 +13,13 @@ void Sudoku::Clear() {
   board_.Clear();
 }
 
-bool Sudoku::Check() {
+bool Sudoku::Check() const {
   return check(board_.Rows()) && \
          check(board_.Cols()) && \
          check(board_.Subgrids());
 }
 
-bool Sudoku::Check(uint8_t i, uint8_t j) {
+bool Sudoku::Check(uint8_t i, uint8_t j) const {
   return check(board_.Rows()[i]) && \
          check(board_.Cols()[j]) && \
          check(board_.Subgrids()[i / 3 * 3 + j / 3]);
@@ -64,7 +64,7 @@ bool Sudoku::solve(std::stack<std::pair<uint8_t,uint8_t>>& emptyCells) {
   return false;
 }
 
-bool Sudoku::check(std::vector<std::vector<uint8_t>> const& components) {
+bool Sudoku::check(std::vector<std::vector<uint8_t>> const& components) const {
   for (auto& component : components) {
     if (!check(component)) {
       return false;
@@ -74,7 +74,7 @@ bool Sudoku::check(std::vector<std::vector<uint8_t>> const& components) {
   return true;
 }
 
-bool Sudoku::check(std::vector<uint8_t> const& component) {
+bool Sudoku::check(std::vector<uint8_t> const& component) const {
   std::bitset<10> s;
   for (uint8_t x : component) {
     if (x == 0) {

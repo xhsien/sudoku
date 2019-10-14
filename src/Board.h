@@ -15,13 +15,13 @@ class Board {
 
   void Clear();
 
-  uint8_t Get(uint8_t i, uint8_t j);
+  uint8_t Get(uint8_t i, uint8_t j) const;
 
   void Update(uint8_t i, uint8_t j, uint8_t val);
 
-  std::vector<std::vector<uint8_t>> const& Rows();
-  std::vector<std::vector<uint8_t>> const& Cols();
-  std::vector<std::vector<uint8_t>> const& Subgrids();
+  std::vector<std::vector<uint8_t>> const& Rows() const;
+  std::vector<std::vector<uint8_t>> const& Cols() const;
+  std::vector<std::vector<uint8_t>> const& Subgrids() const;
 
   friend bool operator==(Board const& lhs, Board const& rhs);
 

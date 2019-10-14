@@ -26,7 +26,7 @@ void Board::Clear() {
   }
 }
 
-uint8_t Board::Get(uint8_t i, uint8_t j) {
+uint8_t Board::Get(uint8_t i, uint8_t j) const {
   return rows_[i][j];
 }
 
@@ -34,11 +34,11 @@ void Board::Update(uint8_t i, uint8_t j, uint8_t val) {
   rows_[i][j] = cols_[j][i] = subgrids_[i / 3 * 3 + j / 3][i % 3 * 3 + j % 3] = val;
 }
 
-std::vector<std::vector<uint8_t>> const& Board::Rows() { return rows_; }
+std::vector<std::vector<uint8_t>> const& Board::Rows() const { return rows_; }
 
-std::vector<std::vector<uint8_t>> const& Board::Cols() { return cols_; }
+std::vector<std::vector<uint8_t>> const& Board::Cols() const { return cols_; }
 
-std::vector<std::vector<uint8_t>> const& Board::Subgrids() { return subgrids_; }
+std::vector<std::vector<uint8_t>> const& Board::Subgrids() const { return subgrids_; }
 
 bool operator==(Board const& lhs, Board const& rhs) {
   return lhs.rows_ == rhs.rows_;

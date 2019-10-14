@@ -22,12 +22,12 @@ class Sudoku {
   // Checks the board for any violations.
   //
   // @return true if there is no violations.
-  bool Check();
+  bool Check() const;
 
   // Checks the position (i,j) for any violations.
   //
   // @return true if there is no violations.
-  bool Check(uint8_t i, uint8_t j);
+  bool Check(uint8_t i, uint8_t j) const;
 
   // Updates the value of a cell. If val is 0, then the cell (i,j) becomes empty.
   void Update(uint8_t i, uint8_t j, uint8_t val);
@@ -43,9 +43,9 @@ class Sudoku {
 
   friend std::ostream& operator<<(std::ostream &os, Sudoku const& sudoku);
  private:
-  bool check(std::vector<std::vector<uint8_t>> const& component);
+  bool check(std::vector<std::vector<uint8_t>> const& component) const;
 
-  bool check(std::vector<uint8_t> const& component);
+  bool check(std::vector<uint8_t> const& component) const;
 
   bool solve(std::stack<std::pair<uint8_t,uint8_t>>& emptyCells);
 
