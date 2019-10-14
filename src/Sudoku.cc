@@ -1,7 +1,6 @@
 #include "Sudoku.h"
 
 #include <bitset>
-#include <iostream>
 
 Sudoku::Sudoku() {}
 
@@ -41,29 +40,6 @@ bool Sudoku::Solve() {
   }
 
   return solve(emptyCells);
-}
-
-void Sudoku::Print() {
-  std::cout << " 123 456 789 " << std::endl;
-  for (uint8_t i = 0; i < 9; ++i) {
-    if (i % 3 == 0) {
-      std::cout << "=============" << std::endl;
-    }
-
-    for (uint8_t j = 0; j < 9; ++j) {
-      if (j % 3 == 0) {
-        std::cout << '|';
-      }
-
-      if (board_.Get(i, j) == 0) {
-        std::cout << " ";
-      } else {
-        std::cout << unsigned(board_.Get(i, j));
-      }
-    }
-    std::cout << "|" << char('1' + i) << std::endl;
-  }
-  std::cout << "=============" << std::endl;
 }
 
 bool Sudoku::solve(std::stack<std::pair<uint8_t,uint8_t>>& emptyCells) {
@@ -121,4 +97,8 @@ bool operator==(Sudoku const& lhs, Sudoku const& rhs) {
 
 bool operator!=(Sudoku const& lhs, Sudoku const& rhs) {
   return !(lhs == rhs);
+}
+
+std::ostream& operator<<(std::ostream &os, Sudoku const& sudoku) {
+  return os << sudoku.board_;
 }

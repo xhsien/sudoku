@@ -19,7 +19,7 @@ int main(int argc, char** argv) {
   while (true) {
     std::cout << "========================" << std::endl;
     std::cout << "Current Sudoku board:   " << std::endl;
-    sudoku.Print();
+    std::cout << sudoku << std::endl;
 
     std::cout << "[1] Update cell.  " << std::endl;
     std::cout << "[2] Solve puzzle. " << std::endl;

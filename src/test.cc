@@ -41,10 +41,8 @@ int main() {
         {7, 9, 6, 3, 1, 8, 4, 5, 2}});
 
   if (sudoku != solution) {
-    std::cout << "Actual:   " << std::endl;
-    sudoku.Print();
-    std::cout << "Expected: " << std::endl;
-    solution.Print();
+    std::cout << "Actual:   \n" << sudoku << std::endl;
+    std::cout << "Expected: \n" << solution << std::endl;
     return 1;
   }
 

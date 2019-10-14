@@ -4,6 +4,7 @@
 #include "Board.h"
 
 #include <cstdint>
+#include <ostream>
 #include <stack>
 #include <vector>
 
@@ -36,12 +37,11 @@ class Sudoku {
   // @return true if the board has at least one solution.
   bool Solve();
 
-  // Prints the board.
-  void Print();
-
   friend bool operator==(Sudoku const& lhs, Sudoku const& rhs);
 
   friend bool operator!=(Sudoku const& lhs, Sudoku const& rhs);
+
+  friend std::ostream& operator<<(std::ostream &os, Sudoku const& sudoku);
  private:
   bool check(std::vector<std::vector<uint8_t>> const& component);
 
