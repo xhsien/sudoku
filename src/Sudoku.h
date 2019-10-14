@@ -10,7 +10,7 @@
 
 class Sudoku {
  public:
-  Sudoku();
+  Sudoku() = default;
 
   Sudoku(std::vector<std::vector<uint8_t>> const& rows);
 

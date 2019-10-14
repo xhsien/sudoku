@@ -2,8 +2,6 @@
 
 #include <bitset>
 
-Sudoku::Sudoku() {}
-
 Sudoku::Sudoku(std::vector<std::vector<uint8_t>> const& rows)
     : board_(rows) {}
 
